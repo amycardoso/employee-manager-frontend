@@ -1,6 +1,4 @@
-//Install express server
 const express = require('express');
-const path = require('path');
 
 const app = express();
 
@@ -8,7 +6,7 @@ const app = express();
 app.use(express.static('./dist/employee-manager-frontend'));
 
 app.get('/*', (req, res) =>
-    res.sendFile('index.html', {root: 'dist/employee-manager-frontend/'}),
+    res.sendFile('index.html', {root: 'dist/employee-manager-frontend'}),
 );
 
 // Start the app by listening on the default Heroku port
