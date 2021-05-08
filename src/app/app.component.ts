@@ -16,22 +16,20 @@ export class AppComponent implements OnInit {
   public editEmployee: Employee;
   public deleteEmployee: Employee;
 
-  constructor(private employeeService: EmployeeService) {}
+  constructor(private employeeService: EmployeeService) { }
 
   ngOnInit() {
     this.getEmployees();
   }
 
   public getEmployees(): void {
-    console.log('Fetching all employees...');
-      this.employeeService.getEmployees().subscribe(
-        (response: Employee[]) => {
-          console.log(response);
-          this.employees = response;
-        },
-        (error: HttpErrorResponse) => {
-          console.error(error);
-        }
+    this.employeeService.getEmployees().subscribe(
+      (response: Employee[]) => {
+        this.employees = response;
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+      }
     );
   }
 
@@ -58,58 +56,51 @@ export class AppComponent implements OnInit {
 
   public onAddEmployee(employeeForm: NgForm): void {
     document.getElementById('add-employee-form').click();
-    console.log('Adding employee...', employeeForm.value);
-      this.employeeService.addEmployee(employeeForm.value).subscribe(
-        (response: Employee) => {
-          console.log(response);
-          this.employee = response;
-          this.getEmployees();
-          employeeForm.reset();
-        },
-        (error: HttpErrorResponse) => {
-          console.error(error);
-          employeeForm.reset();
-        }
+    this.employeeService.addEmployee(employeeForm.value).subscribe(
+      (response: Employee) => {
+        this.employee = response;
+        this.getEmployees();
+        employeeForm.reset();
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+        employeeForm.reset();
+      }
     );
   }
 
   public onUpdateEmployee(employee: Employee): void {
-    console.log(`Editing employee...${employee}`);
-      this.employeeService.updateEmployee(employee).subscribe(
-        (response: Employee) => {
-          console.log(response);
-          this.employee = response;
-          this.getEmployees();
-        },
-        (error: HttpErrorResponse) => {
-          console.error(error);
-        }
+    this.employeeService.updateEmployee(employee).subscribe(
+      (response: Employee) => {
+        this.employee = response;
+        this.getEmployees();
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+      }
     );
   }
 
   public onDeleteEmployee(employeeId: string): void {
-    console.log(`Deleting employee by id: ${employeeId}`);
-      this.employeeService.deleteEmployee(employeeId).subscribe(
-        (response: Employee) => {
-          console.log(`Employee deleted`);
-          this.employee = response;
-          this.getEmployees();
-        },
-        (error: HttpErrorResponse) => {
-          console.error(error);
-        }
+    this.employeeService.deleteEmployee(employeeId).subscribe(
+      (response: Employee) => {
+        this.employee = response;
+        this.getEmployees();
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+      }
     );
   }
 
   public searchEmployees(key: string): void {
-    console.log('Searching employees...');
     const results: Employee[] = [];
     for (const employee of this.employees) {
       if (employee.name.toLowerCase().indexOf(key.toLowerCase()) !== -1
-          || employee.email.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
-          employee.phone.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
-          employee.jobTitle.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
-          results.push(employee);
+        || employee.email.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
+        employee.phone.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
+        employee.jobTitle.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
+        results.push(employee);
       }
     }
     this.employees = results;
