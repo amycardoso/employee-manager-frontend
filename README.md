@@ -1,4 +1,4 @@
-![Codeship](https://img.shields.io/codeship/e6c633e4-e93d-444c-b995-d2eb179c00ef)
+![GitHub deployments](https://img.shields.io/github/deployments/amycardoso/employee-manager-frontend/Production?label=vercel&logo=vercel)
 
 # Employee manager app
  
